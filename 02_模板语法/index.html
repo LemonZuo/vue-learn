@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div id="app">
+    <h2>双大括号表达式</h2>
+    <p>{{msg}}</p>
+    <p>{{msg.toLocaleLowerCase()}}</p>
+    <p>{{url}}</p>
+    <p v-html="url"></p>
+    <p v-text="url"></p>
+
+    <h2>强制数据绑定</h2>
+    <img v-bind:src="imgUrl">
+    <img :src="imgUrl">
+
+    <h2>绑定事件监听</h2>
+    <button v-on:click="test">CLICK</button>
+    <button @click="test2(msg)">CLICK TWO</button>
+</div>
+<body>
+<script src="../vue.min-2.6.10.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'I WILL BACK',
+            url: "<a href='https://lemonzuo.com'>I WILL BACK</a>",
+            imgUrl: "https://cn.vuejs.org/images/logo.png"
+        },
+        methods: {
+            test() {
+                console.log("I'M CLICK")
+            },
+            test2(content) {
+                console.log(content)
+            }
+
+        }
+    });
+</script>
+</body>
+</html>
