@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性和监视</title>
+</head>
+<body>
+<div id="app">
+    姓：<input type="text" placeholder="FirstName" autocomplete="off" v-model="firstName"><br>
+    名：<input type="text" placeholder="LastName" autocomplete="off" v-model="lastName"><br>
+    姓名1（单向）：<input type="text" placeholder="FullName1" autocomplete="off" v-model="fullName1"><br>
+    姓名2（单向）：<input type="text" placeholder="FullName2" autocomplete="off" v-model="fullName2"><br>
+    姓名3（双向）：<input type="text" placeholder="FullName3" autocomplete="off" v-model="fullName3">
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            firstName: "A",
+            lastName: "B",
+            fullName2: "A B"
+        },
+        computed: {
+            /**
+             * 1、初始化时执行
+             * 2、相关属性改变时执行
+             * @returns {string}
+             */
+            fullName1() {
+                console.log("====computed--fullName1====")
+                return this.firstName + " " + this.lastName;
+            },
+            fullName3: {
+                get() {
+                    // 获取属性值
+                    return this.firstName + " " + this.lastName;
+                },
+                set(value) {
+                    // 监视属性值变化
+                    let split = value.split(" ");
+                    this.firstName = split[0];
+                    this.lastName = split[1];
+                }
+            }
+        },
+        watch: {
+            firstName: function (value) {
+                console.log("====watch--firstName====");
+                // firstName发生变化
+                this.fullName2 = value + " " + this.lastName;
+            }
+        }
+    });
+    app.$watch('lastName', function (value) {
+        console.log("====$watch--lastName====");
+        this.fullName2 = this.firstName + " " + value;
+    })
+</script>
+</body>
+</html>
