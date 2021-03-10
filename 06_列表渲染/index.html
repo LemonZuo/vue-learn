@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+</head>
+<body>
+<div id="app">
+    <h2>v-for 遍历数组</h2>
+    <ul>
+        <li v-for="(item, index) in persons" :key="index">
+            {{index + 1}}:{{item.name}}<=====>{{item.age}}
+<!--            <button @click="del(index)">删除</button>-->
+            <button @click="persons.splice(index, 1)">删除</button>
+            <button @click="change(index, {name: 'Tim', age:16})">更新</button>
+        </li>
+    </ul>
+    <h2>v-for 遍历对象</h2>
+    <ul>
+        <li v-for="(value, key) in persons[0]">
+            {{key}}:{{value}}
+        </li>
+    </ul>
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            persons: [
+                {name: "Tom", age: 18},
+                {name: "Jack", age: 20},
+                {name: "Eason", age: 25},
+                {name: "Rose", age: 15}
+            ]
+        },
+        methods: {
+            del(index) {
+                console.log("delete=", index);
+                // 被Vue重写过，能实现数据的响应式
+                this.persons.splice(index, 1);
+            }, change(index, object) {
+                // 不更改persons，改变persons内部对象，数据不是响应式的
+                // this.persons[index] = object;
+                // vue重写过,可实现数据的响应式
+                this.persons.splice(index, 1, object);
+
+            }
+        }
+    });
+</script>
+</body>
+</html>
