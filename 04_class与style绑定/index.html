@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>class与style绑定</title>
+    <style>
+        .aClass {
+            color: red;
+        }
+        .bClass {
+            color: aquamarine;
+        }
+        .cClass {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2>1.class绑定：:class="xxx"</h2>
+    <p class="cClass" :class="a">HHHHHH</p>
+    <p :class="{aClass:aFlag, bClass:bFlag}">GGGGGG</p>
+    <p :class="['aClass', 'cClass']">MMMMM</p>
+    <h2>2.style绑定</h2>
+    <button @click="update">更新</button>
+    <p :style="{color: activeColor, fontSize: activeSize}">DDDDDDDDD</p>
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            a: 'aClass',
+            aFlag: true,
+            bFlag: false,
+            activeColor: 'blue',
+            activeSize: '25px'
+        },
+        methods: {
+            update() {
+                this.a = 'bClass';
+                this.aFlag = !this.aFlag;
+                this.bFlag = !this.bFlag;
+                this.activeColor = "green";
+                this.activeSize = "30px"
+            }
+        }
+    });
+</script>
+</body>
+</html>
