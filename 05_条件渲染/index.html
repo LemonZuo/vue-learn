@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件指令渲染</title>
+</head>
+<body>
+<div id="app">
+    <p v-if="isShow">成功</p>
+    <p v-else="isShow">失败</p>
+    <p v-show="isShow">成功</p>
+    <p v-show="!isShow">失败</p>
+    <button @click="change">切换</button>
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            isShow: true
+        },
+        methods: {
+            change() {
+                this.isShow = !this.isShow;
+            }
+        }
+    });
+</script>
+</body>
+</html>
