@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+</head>
+<div id="app">
+    <h2>事件监听</h2>
+    <button @click="test">test1</button>
+    <button @click="test2('llll')">test2</button>
+    <button @click="test3">test3</button>
+    <button @click="test4('TTTT', $event)">test4</button>
+    <h2>事件修饰符</h2>
+    <div style="width: 200px;height: 200px;background-color: red" @click="test5">
+        <!-- @click.stop阻止事件冒泡 -->
+        <div style="width: 100px;height: 100px;background-color: blueviolet" @click.stop="test6"></div>
+    </div>
+    <!-- 阻止事件默认行为 -->
+    <a href="https://baidu.com" @click.prevent="test7">去百度</a>
+
+    <h2>按键修饰符</h2>
+    <!-- 当回车键抬起 -->
+    <input type="text" @keyup.enter="test8">
+</div>
+<body>
+<script src="../vue.min-2.6.10.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        methods: {
+            test() {
+                console.log("test1")
+            }, test2(content) {
+                console.log(content)
+            }, test3(event) {
+                console.log(event.target.innerHTML);
+            }, test4(content, event) {
+                console.log(content, "---->", event.target.innerHTML);
+            }, test5() {
+                console.log("outer");
+            }, test6() {
+                console.log("inner");
+            }, test7() {
+                console.log("去百度")
+            }, test8(event) {
+                console.log(event.target.value);
+            }
+        }
+    });
+</script>
+</body>
+</html>
