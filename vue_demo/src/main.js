@@ -1,11 +1,8 @@
-/**
- * 入口JS
- */
-import Vue from 'vue'
-import App from "./App.vue"
+import Vue from "vue";
+import App from "./App";
 
-new Vue({
+const vm = new Vue({
   el: '#app',
   components: {App},
   template: '<App/>'
-})
+});
