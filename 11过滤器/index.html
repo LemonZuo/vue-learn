@@ -15,7 +15,7 @@
 <script src="../moment.min-2.29.1.js"></script>
 <script>
     /* 定义过滤器 */
-    Vue.filter('dateString', function (value, type) {
+    Vue.filter('dateString', function (value, type=1) {
 
         let format = ""
         if(type === 1) {

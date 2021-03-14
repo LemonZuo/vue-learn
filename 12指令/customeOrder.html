@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义指令</title>
+</head>
+<body>
+<div id="app">
+    <!-- 转大写 -->
+    <p v-upper-text="msg">{{msg}}</p>
+    <!-- 转小写 -->
+    <p v-lower-text="msg">{{msg}}</p>
+</div>
+
+<div id="app2">
+    <!-- 转大写 -->
+    <p v-upper-text="msg">{{msg}}</p>
+    <!-- 转小写 -->
+    <p v-lower-text="msg">{{msg}}</p>
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script>
+    /* 注册全局指令 */
+    Vue.directive('upper-text', function (el, binding){
+        el.textContent = binding.value.toUpperCase();
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            msg: "Vue is a Web Language"
+        },
+        directives: {
+            // 注册局部指令,仅在当前实例有效
+            'lower-text': function (el, binding) {
+                el.textContent = binding.value.toLowerCase();
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app2',
+        data: {
+            msg: "Vue"
+        }
+    })
+</script>
+</body>
+</html>
