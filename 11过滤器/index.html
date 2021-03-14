@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+</head>
+<body>
+<div id="app">
+    <h2>显示日期格式化</h2>
+    <p>当前时间1为：{{date}}</p>
+    <p>当前时间2为：{{date | dateString(1)}}</p>
+    <p>当前时间3为：{{date | dateString(2)}}</p>
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script src="../moment.min-2.29.1.js"></script>
+<script>
+    /* 定义过滤器 */
+    Vue.filter('dateString', function (value, type) {
+
+        let format = ""
+        if(type === 1) {
+            // 2021-03-14：17:08:12
+            format = "YYYY-MM-DD：HH:mm:ss";
+        } else if(type === 2) {
+            // 2021-03-14
+            format = "YYYY-MM-DD";
+        }
+        let str = moment(value).format(format)
+        return str;
+    })
+
+    new Vue({
+        el: '#app',
+        data: {
+            date: new Date()
+        }
+    });
+</script>
+</body>
+</html>
