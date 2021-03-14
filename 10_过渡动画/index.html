@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过渡动画</title>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+        {
+            opacity: 0;
+        }
+
+        /* 显示时过渡效果 */
+        .move-enter-active {
+            transition: all 1s;
+        }
+
+        /* 隐藏时过渡效果 */
+        .move-leave-active {
+            transition: all 2s;
+        }
+
+        /* 隐藏时样式 */
+        .move-enter, .move-leave-to {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        /* 动画 */
+        .bounce-enter-active {
+            animation: bounce-in .5s;
+        }
+        .bounce-leave-active {
+            animation: bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="isShow=!isShow">toggle</button>
+    <transition name="fade"><p v-show="isShow">1111111111</p></transition>
+
+    <!--<button @click="isShow=!isShow">toggle2</button>
+    <p v-show="isShow">222222222</p>-->
+</div>
+
+<div id="app2">
+    <button @click="isShow=!isShow">toggle</button>
+    <transition name="move"><p v-show="isShow">1111111111</p></transition>
+
+    <!--<button @click="toggle2=!toggle2">toggle2</button>
+    <p v-show="toggle2">222222222</p>-->
+</div>
+<!-- 动画 -->
+<div id="example-2">
+    <button @click="show = !show">Toggle show</button><br>
+    <transition name="bounce">
+        <p v-if="show" style="display: inline-block">Lorem ipsum</p>
+    </transition>
+</div>
+<script src="../vue.min-2.6.10.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isShow: true
+        }
+    });
+
+    new Vue({
+        el: '#app2',
+        data() {
+            return {
+                isShow: true
+            }
+        }
+    })
+    /* 动画 */
+    new Vue({
+        el: '#example-2',
+        data: {
+            show: true
+        }
+    })
+</script>
+</body>
+</html>
