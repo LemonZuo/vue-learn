@@ -24,11 +24,7 @@ export default {
     name: "App",
     data() {
         return {
-            taskList: [
-                {flag: true, name: 'Java'},
-                {flag: false, name: 'Vue'},
-                {flag: true, name: 'MySQL'}
-            ]
+            taskList: JSON.parse(window.localStorage.getItem("taskList") || '[]')
         }
     },
     components: {TaskHeader, TaskList, TaskFooter},
@@ -51,6 +47,16 @@ export default {
         },
         selectAll(check) {
             this.taskList.forEach(task => task.flag = check);
+        }
+    },
+    watch: {
+        taskList: {
+            // 深度监视
+            deep: true,
+            handler: function (val) {
+                // json数据保存到localStorage
+                window.localStorage.setItem('taskList', JSON.stringify(val));
+            }
         }
     }
 }
