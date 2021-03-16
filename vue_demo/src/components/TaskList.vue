@@ -1,7 +1,7 @@
 <template>
     <ul class="todo-main">
         <TaskItem v-for="(taskItem, index) in taskList"
-                  :taskItem="taskItem" :updateTask="updateTask" :delTask="delTask"
+                  :taskItem="taskItem" :updateTask="updateTask"
                   :key="index" :index="index"></TaskItem>
     </ul>
 </template>
@@ -14,7 +14,7 @@ export default {
     props: {
         taskList: {type: Array, required: true},
         updateTask: {type: Function, required: true},
-        delTask: {type: Function, required: true}
+        /*delTask: {type: Function, required: true}*/
     },
     components: {TaskItem}
 }

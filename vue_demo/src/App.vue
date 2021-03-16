@@ -5,17 +5,16 @@
                 <TaskHeader @saveTask="saveTask"></TaskHeader>
                 <TaskList
                     :taskList="taskList"
-                    :updateTask="updateTask"
-                    :delTask="delTask"></TaskList>
+                    :updateTask="updateTask"></TaskList>
                 <TaskFooter :taskList="taskList"
-                            :selectAll="selectAll"
-                            :delTask="delTask"></TaskFooter>
+                            :selectAll="selectAll"></TaskFooter>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import PubSub from 'pubsub-js';
 import TaskHeader from "./components/TaskHeader";
 import TaskList from "./components/TaskList";
 import TaskFooter from "./components/TaskFooter";
@@ -26,6 +25,11 @@ export default {
         return {
             taskList: JSON.parse(window.localStorage.getItem("taskList") || '[]')
         }
+    },
+    mounted() {
+        PubSub.subscribe("delTask", (msg, data) => {
+            this.delTask(data.type, data.index);
+        })
     },
     components: {TaskHeader, TaskList, TaskFooter},
     methods: {

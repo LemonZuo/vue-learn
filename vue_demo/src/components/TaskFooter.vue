@@ -6,16 +6,18 @@
         <span>
           <span>已完成{{ getComplete }}</span> / 全部{{ taskList.length }}
         </span>
-        <button class="btn btn-danger" v-show="getComplete" @click="delTask(1, 0)">清除已完成任务</button>
+        <button class="btn btn-danger" v-show="getComplete" @click="del()">清除已完成任务</button>
     </div>
 </template>
 
 <script type="text/javascript">
+import PubSub from "pubsub-js";
+
 export default {
     name: "TaskFooter",
     props: {
         taskList: {type: Array, required: true},
-        delTask: {type: Function, required: true},
+        /*delTask: {type: Function, required: true},*/
         selectAll: {type: Function, required: true},
     }
     , computed: {
@@ -30,7 +32,13 @@ export default {
                 this.selectAll(value);
             }
         }
+    }, methods:{
+        del() {
+            let data = {type: 1, index: 0}
+            // PubSub.publish('delTask', data);
+        }
     }
+
 }
 </script>
 
