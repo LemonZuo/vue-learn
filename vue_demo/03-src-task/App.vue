@@ -2,7 +2,7 @@
     <div id="root">
         <div class="todo-container">
             <div class="todo-wrap">
-                <TaskHeader @saveTask="saveTask"></TaskHeader>
+                <TaskHeader :saveTask="saveTask"></TaskHeader>
                 <TaskList
                     :taskList="taskList"
                     :updateTask="updateTask"

@@ -11,7 +11,7 @@
 export default {
     name: "TaskHeader",
     props: {
-        // saveTask: {type:Function, required: true}
+        saveTask: {type:Function, required: true}
     },
     data() {
         return {
@@ -19,13 +19,12 @@ export default {
         }
     }, methods: {
         save() {
-            if(this.name.length == 0) {
+            let name = this.name;
+            if(name.length == 0) {
                 console.log("不能为空");
                 return;
             }
-            // this.saveTask(this.name);
-            // 触发自定义事件
-            this.$emit('saveTask', this.name)
+            this.saveTask(name);
             this.name = '';
         }
     }
