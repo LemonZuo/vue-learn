@@ -24,7 +24,7 @@ export default {
         },
         isAllChecked: {
             get() {
-                return this.getComplete === this.taskList.length;
+                return this.getComplete === this.taskList.length && this.taskList.length > 0;
             },
             set(value) {
                 this.selectAll(value);
