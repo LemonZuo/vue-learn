@@ -17,7 +17,6 @@ export default {
     name: "TaskFooter",
     props: {
         taskList: {type: Array, required: true},
-        /*delTask: {type: Function, required: true},*/
         selectAll: {type: Function, required: true},
     }
     , computed: {
@@ -35,7 +34,7 @@ export default {
     }, methods:{
         del() {
             let data = {type: 1, index: 0}
-            // PubSub.publish('delTask', data);
+            PubSub.publish('delTask', data);
         }
     }
 

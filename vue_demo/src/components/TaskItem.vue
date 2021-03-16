@@ -16,11 +16,9 @@ export default {
     props: {
         taskItem: {type: Object, required: true},
         updateTask: {type: Function, required: true},
-        /*delTask: {type: Function, required: true},*/
         index: {type: Number, required: true}
     }, methods: {
         del(index) {
-            /*this.delTask(0, index);*/
             let data = {type: 0, index: index}
             PubSub.publish('delTask', data);
         }
