@@ -6,8 +6,10 @@
                 <TaskList
                     :taskList="taskList"
                     :updateTask="updateTask"
-                    :delTask="delTask" :selectAll="selectAll"></TaskList>
-                <TaskFooter :taskList="taskList" :delTask="delTask"></TaskFooter>
+                    :delTask="delTask"></TaskList>
+                <TaskFooter :taskList="taskList"
+                            :selectAll="selectAll"
+                            :delTask="delTask"></TaskFooter>
             </div>
         </div>
     </div>
@@ -36,26 +38,19 @@ export default {
         },
         updateTask(index) {
             this.taskList[index].flag = !this.taskList[index].flag;
-        }, delTask(type, index) {
+        },
+        delTask(type, index) {
             if (type == 0) {
                 // 删除单个
                 this.taskList.splice(index, 1);
             } else if (type == 1) {
                 // 清除全部
-                for (let i = 0; i < this.taskList.length; i++) {
-                    if (this.taskList[i].flag) {
-                        this.taskList.splice(i, 1); // 将使后面的元素依次前移，数组长度减1
-                        i--; // 如果不减，将漏掉一个元素
-                    }
-                }
+                this.taskList = this.taskList.filter(task => !task.flag);
 
             }
-        }, selectAll() {
-            for (let i = 0; i < this.taskList.length; i++) {
-                if (!this.taskList[i].flag) {
-                    this.taskList[i].flag = !this.taskList[i].flag;
-                }
-            }
+        },
+        selectAll(check) {
+            this.taskList.forEach(task => task.flag = check);
         }
     }
 }

@@ -1,12 +1,12 @@
 <template>
     <div class="todo-footer">
         <label>
-            <input type="checkbox" v-model="getFlag" @click="selectAll"/>
+            <input type="checkbox" v-model="isAllChecked"/>
         </label>
         <span>
-          <span>已完成{{ getComplete }}</span> / 全部{{ getCount }}
+          <span>已完成{{ getComplete }}</span> / 全部{{ taskList.length }}
         </span>
-        <button class="btn btn-danger" @click="delTask(1, 0)">清除已完成任务</button>
+        <button class="btn btn-danger" v-show="getComplete" @click="delTask(1, 0)">清除已完成任务</button>
     </div>
 </template>
 
@@ -16,33 +16,19 @@ export default {
     props: {
         taskList: {type: Array, required: true},
         delTask: {type: Function, required: true},
-        selectAll: {type: Function, required: true}
-    },
-    data() {
-        return {
-            count: 0,
-            complete: 0,
-        }
-    }, computed: {
-        getCount() {
-            this.count = this.taskList.length;
-            return this.count;
-        },
+        selectAll: {type: Function, required: true},
+    }
+    , computed: {
         getComplete() {
-            let num = 0;
-            for (let i = 0; i < this.taskList.length; i++) {
-                if(this.taskList[i].flag) {
-                    num++;
-                }
-            }
-            this.complete = num;
-            return this.complete;
+            return this.taskList.reduce((pre, cur) => pre + (cur.flag ? 1 : 0), 0);
         },
-        getFlag() {
-            if(this.count === 0) {
-                return false;
+        isAllChecked: {
+            get() {
+                return this.getComplete === this.taskList.length;
+            },
+            set(value) {
+                this.selectAll(value);
             }
-            return this.count === this.complete;
         }
     }
 }
