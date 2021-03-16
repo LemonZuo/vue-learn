@@ -1,9 +1,7 @@
-import Vue from 'vue';
+import Vue from "vue";
 import App from "./App";
 
-import "./base.css";
-
-const app = new Vue({
+const vm = new Vue({
   el: '#app',
   components: {App},
   template: '<App/>'
