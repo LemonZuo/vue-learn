@@ -24,12 +24,14 @@ import PubSub from 'pubsub-js';
 import TaskHeader from "./components/TaskHeader";
 import TaskList from "./components/TaskList";
 import TaskFooter from "./components/TaskFooter";
+import Stroage from "./util/Stroage";
 
 export default {
     name: "App",
     data() {
         return {
-            taskList: JSON.parse(window.localStorage.getItem("taskList") || '[]')
+            // taskList: JSON.parse(window.localStorage.getItem("taskList") || '[]')
+            taskList: Stroage.get("taskList")
         }
     },
     computed: {
@@ -82,7 +84,8 @@ export default {
             deep: true,
             handler: function (val) {
                 // json数据保存到localStorage
-                window.localStorage.setItem('taskList', JSON.stringify(val));
+                // window.localStorage.setItem('taskList', JSON.stringify(val));
+                Stroage.set("taskList", val);
             }
         }
     }
