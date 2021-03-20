@@ -6,14 +6,8 @@
                 <TaskList
                     :taskList="taskList"
                     :updateTask="updateTask"></TaskList>
-                <!--                <TaskFooter :taskList="taskList"
-                                            :selectAll="selectAll"></TaskFooter>-->
-                <TaskFooter>
-                    <input type="checkbox" v-model="isAllChecked" slot="checkAll"/>
-                    <span slot="complete">已完成{{ getComplete }}</span>
-                    <span slot="allTask">全部{{ taskList.length }}</span>
-                    <button class="btn btn-danger" v-show="getComplete" @click="del()" slot="delAll">清除已完成任务</button>
-                </TaskFooter>
+                <TaskFooter :taskList="taskList"
+                            :selectAll="selectAll"></TaskFooter>
             </div>
         </div>
     </div>
@@ -30,19 +24,6 @@ export default {
     data() {
         return {
             taskList: JSON.parse(window.localStorage.getItem("taskList") || '[]')
-        }
-    },
-    computed: {
-        getComplete() {
-            return this.taskList.reduce((pre, cur) => pre + (cur.flag ? 1 : 0), 0);
-        },
-        isAllChecked: {
-            get() {
-                return this.getComplete === this.taskList.length && this.taskList.length > 0;
-            },
-            set(value) {
-                this.selectAll(value);
-            }
         }
     },
     mounted() {
@@ -70,10 +51,6 @@ export default {
         },
         selectAll(check) {
             this.taskList.forEach(task => task.flag = check);
-        },
-        del() {
-            let data = {type: 1, index: 0}
-            PubSub.publish('delTask', data);
         }
     },
     watch: {

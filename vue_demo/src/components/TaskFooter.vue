@@ -1,12 +1,18 @@
 <template>
     <div class="todo-footer">
         <label>
-            <input type="checkbox" v-model="isAllChecked"/>
+<!--            <input type="checkbox" v-model="isAllChecked"/>-->
+            <slot name="checkAll"></slot>
         </label>
         <span>
-          <span>已完成{{ getComplete }}</span> / 全部{{ taskList.length }}
+<!--            <span>已完成{{ getComplete }}</span>-->
+            <slot name="complete"></slot>
+            /
+<!--            <span>全部{{ taskList.length }}</span>-->
+            <slot name="allTask"></slot>
         </span>
-        <button class="btn btn-danger" v-show="getComplete" @click="del()">清除已完成任务</button>
+<!--        <button class="btn btn-danger" v-show="getComplete" @click="del()">清除已完成任务</button>-->
+        <slot name="delAll"></slot>
     </div>
 </template>
 
@@ -16,26 +22,26 @@ import PubSub from "pubsub-js";
 export default {
     name: "TaskFooter",
     props: {
-        taskList: {type: Array, required: true},
-        selectAll: {type: Function, required: true},
+        // taskList: {type: Array, required: true},
+        // selectAll: {type: Function, required: true},
     }
     , computed: {
-        getComplete() {
-            return this.taskList.reduce((pre, cur) => pre + (cur.flag ? 1 : 0), 0);
-        },
-        isAllChecked: {
-            get() {
-                return this.getComplete === this.taskList.length && this.taskList.length > 0;
-            },
-            set(value) {
-                this.selectAll(value);
-            }
-        }
+        // getComplete() {
+        //     return this.taskList.reduce((pre, cur) => pre + (cur.flag ? 1 : 0), 0);
+        // },
+        // isAllChecked: {
+        //     get() {
+        //         return this.getComplete === this.taskList.length && this.taskList.length > 0;
+        //     },
+        //     set(value) {
+        //         this.selectAll(value);
+        //     }
+        // }
     }, methods:{
-        del() {
-            let data = {type: 1, index: 0}
-            PubSub.publish('delTask', data);
-        }
+        // del() {
+        //     let data = {type: 1, index: 0}
+        //     PubSub.publish('delTask', data);
+        // }
     }
 
 }
